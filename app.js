@@ -8,6 +8,68 @@ var express = require('express'),
     cookieParser = require("cookie-parser"),
     methodOverride = require('method-override');
 
+
+    function getZodiacSign(day, month) {
+
+      var zodiacSigns = {
+        'capricorn':{"name":"capricorn", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'aquarius':{"name":"aquarius", "trait": "Knowledge, Humanitarian, Serious,Insightful, Duplicitous" },
+        'pisces':{"name":"pisces", "trait": "Fluctuation, Depth, Imagination,Reactive, Indecisive" },
+        'aries':{"name":"aries", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'taurus':{"name":"taurus", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'gemini':{"name":"gemini", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'cancer':{"name":"cancer", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'leo':{"name":"leo", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'virgo':{"name":"virgo", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'libra':{"name":"libra", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'scorpio':{"name":"scorpio", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'sagittarius':{"name":"sagittarius", "trait": "Philosophical, Motion,Experimentation, Optimism" }
+      }
+
+      if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
+        return zodiacSigns.capricorn;
+      } else if ((month == 1 && day >= 21) || (month == 2 && day <= 18)) {
+        return zodiacSigns.aquarius;
+      } else if((month == 2 && day >= 19) || (month == 3 && day <= 20)) {
+        return zodiacSigns.pisces;
+      } else if((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+        return zodiacSigns.aries;
+      } else if((month == 4 && day >= 21) || (month == 5 && day <= 20)) {
+        return zodiacSigns.taurus;
+      } else if((month == 5 && day >= 21) || (month == 6 && day <= 20)) {
+        return zodiacSigns.gemini;
+      } else if((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+        return zodiacSigns.cancer;
+      } else if((month == 7 && day >= 23) || (month == 8 && day <= 23)) {
+        return zodiacSigns.leo;
+      } else if((month == 8 && day >= 24) || (month == 9 && day <= 23)) {
+        return zodiacSigns.virgo;
+      } else if((month == 9 && day >= 24) || (month == 10 && day <= 23)) {
+        return zodiacSigns.libra;
+      } else if((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+        return zodiacSigns.scorpio;
+      } else if((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
+        return zodiacSigns.sagittarius;
+      }
+    }
+
+    var zodiacSigns = {
+        120: {html: "&#9809",text: 'Capricorn'},
+        218: {html: "&#9810",text: 'Aquarius'},
+        320: {html: "&#9811",text: 'Pisces'},
+        420: {html: "&#9800",text: 'Aries'},
+        521: {html: "&#9801",text: 'Taurus'},
+        621: {html: "&#9802",text: 'Gemini'},
+        722: {html: "&#9803",text: 'Cancer'},
+        823: {html: "&#9804",text: 'Leo'},
+        923: {html: "&#9805",text: 'Virgo'},
+        1023: {html: "&#9806",text: 'Libra'},
+        1122: {html: "&#9807",text: 'Scorpius'},
+        1222: {html: "&#9808",text: 'Sagittarius'},
+        1231: {html: "&#9809",text: 'Capricorn'}
+    };
+
+
 var FACEBOOK_APP_ID = "1439023756414410"
 var FACEBOOK_APP_SECRET = "385329b4386f28157014245242ea44ca";
 var CALLBACK_URL = "http://perceptions.io:8000/auth/facebook/callback";
@@ -85,8 +147,40 @@ app.get('/', function(req, res) {
 
 app.get('/account', ensureAuthenticated, function(req, res) {
     console.log(JSON.stringify(req.user))
+
+    var birthday = req.user._json.birthday ;
+    var arr = birthday.split("/");
+
+console.log(birthday);
+console.log(arr[0]);
+console.log(arr[1]);
+
+    var zodiacValue = parseInt(arr[0] + arr[1], 10);
+console.log(zodiacValue);
+
+var currentZodiacSign = null;
+for (var z in zodiacSigns) {
+    try {
+        if (currentZodiacSign == null) currentZodiacSign = zodiacSigns[z];
+        if (zodiacValue > parseInt(z,10))
+            currentZodiacSign = zodiacSigns[z];
+        else break;//passed the date - the last one was the right sign. stop looping.
+    }
+    catch (e) {
+    }
+}
+
+var zodiacPart = "";
+if (currentZodiacSign != null)
+    zodiacPart = "<span class='ZodiacSign' title='" + currentZodiacSign.text + "'>" + currentZodiacSign.html + "</span>";
+
+
+
+
+
     res.render('account', {
-        user: req.user
+        user: req.user,
+        zodiacPart: getZodiacSign(arr[1], arr[0])
     });
 });
 
@@ -102,7 +196,7 @@ app.get('/login', function(req, res) {
 //   redirecting the user to facebook.com.  After authorization, Facebook will
 //   redirect the user back to this application at /auth/facebook/callback
 app.get('/auth/facebook',
-passport.authenticate('facebook', { scope: ['public_profile', 'email', 'user_likes', 'user_status'] }),
+passport.authenticate('facebook', { scope: ['public_profile', 'email', 'user_likes', 'user_status', 'user_birthday'] }),
     function(req, res) {
         // The request will be redirected to Facebook for authentication, so this
         // function will not be called.
