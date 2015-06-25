@@ -802,6 +802,7 @@
                 <% if (user.facebook.token) { %>
                     <p>
                          <strong>name</strong>: <%= user.facebook.name %><br>
+                          <strong>json</strong>: <%= user.facebook._json %><br>
                          <strong>zodiacPart</strong>: <%= zodiacPart.name %><br>
                         <strong>trait</strong>: <%= zodiacPart.trait %><br>
 
@@ -822,7 +823,7 @@
         <script>
         $(document).ready(function(){
              $(".fakeloader").fakeLoader({
-                 timeToHide:1200,
+                 timeToHide:2500,
                  bgColor:"#1abc9c",
                  spinner:"spinner6"
              });
