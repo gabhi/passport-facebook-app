@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
+    <title>Perceptions</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
@@ -21,7 +21,7 @@
 
 
         <!-- FACEBOOK INFORMATION -->
-        <div class="col-sm-6">
+        <div class="">
             <div class="well">
                 <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
 
@@ -33,12 +33,12 @@
                         <strong>email</strong>: <%= user.facebook.email %><br>
                         <strong>name</strong>: <%= user.facebook.name %><br>
                         <strong>json</strong>: <%= user.facebook._json %><br>
-                        <strong>json</strong>: <%= _json.id %><br>
+                        <strong>zodiacPart</strong>: <%= zodiacPart.name %><br>
+                        <strong>trait</strong>: <%= zodiacPart.trait %><br>
 
                     </p>
 
-                    <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
-                <% } else { %>
+                 <% } else { %>
                     <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
                 <% } %>
 

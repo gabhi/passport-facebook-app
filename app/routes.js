@@ -9,11 +9,62 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        console.log(req.user.facebook._json);
+        console.log(req.user.facebook._json.birthday);
+        function getZodiacSign(day, month) {
+
+      var zodiacSigns = {
+        'capricorn':{"name":"capricorn", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'aquarius':{"name":"aquarius", "trait": "Knowledge, Humanitarian, Serious,Insightful, Duplicitous" },
+        'pisces':{"name":"pisces", "trait": "Fluctuation, Depth, Imagination,Reactive, Indecisive" },
+        'aries':{"name":"aries", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'taurus':{"name":"taurus", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'gemini':{"name":"gemini", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'cancer':{"name":"cancer", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'leo':{"name":"leo", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'virgo':{"name":"virgo", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'libra':{"name":"libra", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'scorpio':{"name":"scorpio", "trait": "Determination, Dominance, Perservering, Practical, Willful" },
+        'sagittarius':{"name":"sagittarius", "trait": "Philosophical, Motion,Experimentation, Optimism" }
+      }
+
+      if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
+        return zodiacSigns.capricorn;
+      } else if ((month == 1 && day >= 21) || (month == 2 && day <= 18)) {
+        return zodiacSigns.aquarius;
+      } else if((month == 2 && day >= 19) || (month == 3 && day <= 20)) {
+        return zodiacSigns.pisces;
+      } else if((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+        return zodiacSigns.aries;
+      } else if((month == 4 && day >= 21) || (month == 5 && day <= 20)) {
+        return zodiacSigns.taurus;
+      } else if((month == 5 && day >= 21) || (month == 6 && day <= 20)) {
+        return zodiacSigns.gemini;
+      } else if((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+        return zodiacSigns.cancer;
+      } else if((month == 7 && day >= 23) || (month == 8 && day <= 23)) {
+        return zodiacSigns.leo;
+      } else if((month == 8 && day >= 24) || (month == 9 && day <= 23)) {
+        return zodiacSigns.virgo;
+      } else if((month == 9 && day >= 24) || (month == 10 && day <= 23)) {
+        return zodiacSigns.libra;
+      } else if((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+        return zodiacSigns.scorpio;
+      } else if((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
+        return zodiacSigns.sagittarius;
+      }
+    }
+
+
+
+    var birthday = req.user.facebook.birthday ;
+        var arr = birthday.split("/");
+
+
 
         res.render('profile.ejs', {
             user : req.user,
-            _json: JSON.parse(req.user.facebook._json)
+            _json: JSON.parse(req.user.facebook._json),
+            zodiacPart: getZodiacSign(arr[1], arr[0])
         });
     });
 
