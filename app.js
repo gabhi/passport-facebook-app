@@ -8,9 +8,9 @@ var express = require('express'),
     cookieParser = require("cookie-parser"),
     methodOverride = require('method-override');
 
-var FACEBOOK_APP_ID = "FACEBOOK_APP_ID"
-var FACEBOOK_APP_SECRET = "FACEBOOK_APP_SECRET";
-var CALLBACK_URL = "http://CALLBACK_URL:8000/auth/facebook/callback";
+var FACEBOOK_APP_ID = "1439023756414410"
+var FACEBOOK_APP_SECRET = "385329b4386f28157014245242ea44ca";
+var CALLBACK_URL = "http://perceptions.io:8000/auth/facebook/callback";
 var PORT = 8000;
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -45,6 +45,7 @@ passport.use(new FacebookStrategy({
             // represent the logged-in user.  In a typical application, you would want
             // to associate the Facebook account with a user record in your database,
             // and return that user instead.
+            console.log(JSON.stringify(profile));
             return done(null, profile);
         });
     }
@@ -83,6 +84,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/account', ensureAuthenticated, function(req, res) {
+    console.log(JSON.stringify(req.user))
     res.render('account', {
         user: req.user
     });
@@ -100,7 +102,7 @@ app.get('/login', function(req, res) {
 //   redirecting the user to facebook.com.  After authorization, Facebook will
 //   redirect the user back to this application at /auth/facebook/callback
 app.get('/auth/facebook',
-passport.authenticate('facebook', { scope: ['public_profile', 'email'] }),
+passport.authenticate('facebook', { scope: ['public_profile', 'email', 'user_likes', 'user_status'] }),
     function(req, res) {
         // The request will be redirected to Facebook for authentication, so this
         // function will not be called.
@@ -116,7 +118,7 @@ app.get('/auth/facebook/callback',
         failureRedirect: '/login'
     }),
     function(req, res) {
-        res.redirect('/');
+        res.redirect('/account');
     });
 
 app.get('/logout', function(req, res) {
