@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <style>
     
+body {
+  padding-top: 40px;
+  
+}
 
     .spinner1 {
       width: 40px;
@@ -945,6 +949,54 @@
 </head>
 
 <body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" id="navbar-snap">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+
+<!-- // snap team companies apply -->
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <div class="hidden-xs">
+            <ul class="nav navbar-nav">
+              <li >
+                <a class="navbar-brand" href="/">Snap!</a>
+              </li>
+            </ul>
+          </div>
+          <div class="hidden-sm hidden-md hidden-lg">
+            <a class="navbar-brand" href="/">Snap!</a>
+          </div>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+
+            <li  ><a href="/opportunities">Opportunities</a></li>
+            <li  ><a href="/about">About</a></li>
+
+                          <li  ><a href="/apply">Apply</a></li>
+                        </ul>
+          <ul class="nav navbar-nav navbar-right">
+
+            <li class="active" ><a href="/#"><%= user.facebook.name %> </a></li>      <li><img src="<%= _json.picture.data.url %>" /></li>      
+          </ul>
+        </div><!--/.nav-collapse -->
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+
   <div class="fakeloader"></div>
 
   <div class="container">
