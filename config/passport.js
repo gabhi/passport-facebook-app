@@ -158,8 +158,8 @@ module.exports = function(passport) {
       clientID: configAuth.facebookAuth.clientID,
       clientSecret: configAuth.facebookAuth.clientSecret,
       callbackURL: configAuth.facebookAuth.callbackURL,
-      profileFields: ['id', 'displayName', 'photos', 'books',
-        'television', 'email', 'name'
+      profileFields: ['id', 'displayName', 'photos', 'books','education',
+        'television', 'email', 'name', 'music', 'location', 'sports', 'favorite_athletes','favorite_teams', 'posts', 'devices', 'friends'
       ],
       passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 
@@ -171,7 +171,6 @@ module.exports = function(passport) {
 
         // check if the user is already logged in
         if (!req.user) {
-          console.log("11");
 
           User.findOne({
             'facebook.id': profile.id
