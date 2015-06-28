@@ -808,17 +808,12 @@
 
 
 
-                         <strong>name</strong>: <%= user.facebook.name %><br>
-                         <strong>Books</strong>: <%= _json.books.data[0].name %><br>
-                         <strong>TV</strong>: <%= _json.television.data[0].name %><br>
-
-                          <strong>json</strong>: <%= user.facebook._json %><br>
-
+                       
                          <strong>zodiacPart</strong>: <%= zodiacPart.name %><br>
                         <strong>trait</strong>: <%= zodiacPart.trait %><br>
 
                     </p>
-                  <a href="/profile_results">Next</a>
+
                  <% } else { %>
                     <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
                 <% } %>
