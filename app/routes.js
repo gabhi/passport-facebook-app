@@ -100,7 +100,7 @@ module.exports = function(app, passport) {
         var zodiacPart = "";
 
 
-
+        console.log(req.user.facebook.birthday);
         if (req.user.facebook.birthday) {
             var birthday = req.user.facebook.birthday;
             var arr = birthday.split("/");
