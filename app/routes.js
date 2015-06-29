@@ -20,51 +20,51 @@ module.exports = function(app, passport) {
             var zodiacSigns = {
                 'capricorn': {
                     "name": "capricorn",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Responsible, patient, ambitious, resourceful, loyal"
                 },
                 'aquarius': {
                     "name": "aquarius",
-                    "trait": "Knowledge, Humanitarian, Serious,Insightful, Duplicitous"
+                    "trait": "Witty, Clever, Humanitarian, Inventive, Original"
                 },
                 'pisces': {
                     "name": "pisces",
-                    "trait": "Fluctuation, Depth, Imagination,Reactive, Indecisive"
+                    "trait": "Compassionate, Adaptable, Accepting, Devoted, Imaginative"
                 },
                 'aries': {
                     "name": "aries",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Independent, Generous, Optimistic, Enthusiastic, Courageous"
                 },
                 'taurus': {
                     "name": "taurus",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Dependable, Persistent, Loyal, Patient, Generous"
                 },
                 'gemini': {
                     "name": "gemini",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Energetic, Clever, Imaginative, Witty, Adaptable"
                 },
                 'cancer': {
                     "name": "cancer",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Loyalty, Dependable, Caring, Adaptable, Responsive"
                 },
                 'leo': {
                     "name": "leo",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Confident, Ambitious, Generous, Loyal, Encouraging"
                 },
                 'virgo': {
                     "name": "virgo",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Analytical, Observant, Helpful, Reliable, Precise"
                 },
                 'libra': {
                     "name": "libra",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Diplomatic, Graceful, Peaceful, Idealistic, Hospitable"
                 },
                 'scorpio': {
                     "name": "scorpio",
-                    "trait": "Determination, Dominance, Perservering, Practical, Willful"
+                    "trait": "Loyal, Passionate, Resourceful, Observant, Dynamic"
                 },
                 'sagittarius': {
                     "name": "sagittarius",
-                    "trait": "Philosophical, Motion,Experimentation, Optimism"
+                    "trait": "Independent, Optimistic, Cheerful, Honest, Intellectual"
                 }
             }
 
