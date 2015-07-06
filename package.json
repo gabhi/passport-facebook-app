@@ -3,6 +3,7 @@
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "latest",
+    "bluemix": "^1.0.4",
     "body-parser": "~1.0.0",
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.0.0",
@@ -17,6 +18,8 @@
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
-    "path": "^0.11.14"
+    "path": "^0.11.14",
+    "watson-developer-cloud": "^0.9.19",
+    "wordfreq": "0.1.0-dev"
   }
 }

@@ -108,6 +108,30 @@ module.exports = function(app, passport) {
     }
 
 
+    var bluemix = require('bluemix'),
+      watson = require('watson-developer-cloud');
+
+
+    var watson = require('watson-developer-cloud');
+
+    var personality_insights = watson.personality_insights({
+      username: '55238a5d-1554-46bb-85ba-34ec2ec2261d',
+      password: 'vo6LiKnQRMOW',
+      version: 'v2'
+    });
+
+    personality_insights.profile({
+        text: "Bernard Marr is a best-selling business author, confidence happy sad sure  keynote speaker and consultant in strategic performance, analytics, KPIs and big data. He is one of the world's most highly respected voices anywhere when it comes to data in business. His leading-edge work with major companies, organisations and governments across the globe makes him a globally acclaimed and award-winning researcher, consultant and teacher. Bernard is acknowledged by the CEO Journal as one of today 's leading business brains and by LinkedIn as one of the World's top 100 business Influencers.He has written a number of seminal books and over 200 high profile reports"
+      },
+      function(err, response) {
+        if (err)
+          console.log('error:', err);
+        else
+          console.log(JSON.stringify(response, null, 2));
+      });
+
+
+
     var books = (_json.books) ? "books, " : null;
     var television = _json.television ? "television, " : null;
     var music = _json.music ? "music, " : null;
@@ -117,11 +141,64 @@ module.exports = function(app, passport) {
     var sports = null;
     if (favorite_athletes || favorite_teams) sports = "sports";
 
+    var list = {};
+    var getSortedKeys = function(obj) {
+      var keys = [];
+      for (var key in obj) keys.push(key);
+      return keys.sort(function(a, b) {
+        return obj[a] - obj[b]
+      });
+    }
+
+    var SortArrayByKeys = function(inputarray) {
+      var arraykeys = [];
+      for (var k in inputarray) {
+        arraykeys.push(k);
+      }
+      arraykeys.sort();
+
+      var outputarray = [];
+      for (var i = 0; i < arraykeys.length; i++) {
+        outputarray[arraykeys[i]] = inputarray[arraykeys[i]];
+      }
+      return outputarray;
+    }
+    var order = [];
+
+    var cmp = function(a, b) {
+      if (list[a] < list[b]) return -1;
+      if (list[a] > list[b]) return 1;
+      return 0;
+    }
+
+    _json.posts.data.forEach(function(element, index, array) {
+
+      if (element.name) {
+        var str = element.name;
+        var res = str.split(" ");
+        console.log(res);
+
+        res.forEach(function(ele, index, arr) {
+          if (list[ele]) {
+            list[ele] = list[ele] + 1;
+          } else list[ele] = 1;
+        });
+
+      }
+
+
+
+    });
+    console.log((list));
+    for (i in list) order.push(i);
+    order.sort(cmp);
+    console.log(order);
+    //console.log(SortArrayByKeys(list));
 
     var msg = "You are into " + books + television + music + sports;
     //<strong>You seem to be </strong>:
     //if(req.user.facebook._json.books) msg += "books, ";
-    console.log(JSON.stringify(_json.posts.data, null, 2))
+    //  console.log(JSON.stringify(_json.posts.data, null, 2))
     res.render('profile.ejs', {
       user: req.user,
       _json: _json,
